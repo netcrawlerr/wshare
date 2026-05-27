@@ -111,7 +111,7 @@ app.Lifetime.ApplicationStarted.Register(() =>
     Console.WriteLine(" [SYS_STATUS] PROTOCOL ACTIVE. SERVER RUNNING READY TO ACCEPT STREAMS  ");
     Console.WriteLine("======================================================================");
     Console.ResetColor();
-    Console.WriteLine("\nAcess local data files by routing your target browser to:\n");
+    Console.WriteLine("\nAccess local data files by routing your target browser to:\n");
 
 
     foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())

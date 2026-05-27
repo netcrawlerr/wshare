@@ -1,4 +1,4 @@
-wshare-client/** linguist-vendor=true
+wshare-client/** linguist-vendor
 
 wshare.Server/wwwroot/** linguist-generated=true
 
