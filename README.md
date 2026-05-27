@@ -12,7 +12,22 @@ One device runs the server, and others connect using the displayed LAN address. 
 
 ---
 
-## Screenshots
+## 💡 Inspiration
+
+This project was built out of a real limitation
+
+I was brought a laptop where **USB access was restricted and software installation required admin privileges**, so I couldn’t use traditional file transfer tools. To solve this, I built `wshare` to move files over a local network using only a browser.
+
+---
+
+
+> 💡 **Note:**  
+> This project currently supports **one-way transfer only (client → server)**.  
+> There is no download UI yet for sending files back from the server device to other devices.
+
+---
+
+## 📸 Screenshots
 
 <table>
   <tr>
@@ -38,45 +53,43 @@ wshare/
 
 ---
 
-## 🚀 Releases
+## 💻 Running the Project
 
-Prebuilt standalone binaries are available in the Releases section.
+### 🚀 Primary (Development Mode)
 
-### Linux
-
-```bash
-chmod +x wshare.Server
-./wshare.Server
-```
-
-### Windows
-
-```bash
-wshare.Server.exe
-```
-
----
-
-## 💻 Local Development
-
-### Build frontend
+This is the recommended way to run the project:
 
 ```bash
 cd wshare-client
 npm install
 npm run build
-```
 
-### Run server
-
-```bash
 cd ../wshare.Server
 dotnet run
 ```
 
-The server prints LAN access URLs automatically.
-
+The server will print LAN access URLs automatically.  
 Open one from another device on the same Wi-Fi network.
+
+---
+
+### 📦 Alternative (Published Build)
+
+After publishing the server:
+
+#### Linux
+
+```bash
+cd wshare.Server/bin/Release/net9.0/linux-x64/publish
+chmod +x wshare.Server
+./wshare.Server
+```
+
+#### Windows
+
+```bash
+wshare.Server.exe
+```
 
 ---
 
@@ -87,7 +100,7 @@ Open one from another device on the same Wi-Fi network.
 - Serves React UI from `wwwroot`
 - Accepts streamed multipart uploads
 - Writes files directly to disk (no full buffering)
-- Preserves folder structure during upload
+
 
 ---
 
