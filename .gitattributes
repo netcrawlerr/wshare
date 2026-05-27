@@ -1,0 +1,14 @@
+wshare-client/** linguist-vendor=true
+
+wshare.Server/wwwroot/** linguist-generated=true
+
+#  Line Ending Normalization 
+# Ensure cross-platform development layouts (Windows vs Linux) don't corrupt files
+* text=auto
+
+# Explicitly ensure source files preserve standard LF line endings
+*.cs text eol=lf
+*.tsx text eol=lf
+*.ts text eol=lf
+*.css text eol=lf
+*.json text eol=lf
