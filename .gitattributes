@@ -1,4 +1,4 @@
-wshare-client/** linguist-vendor
+wshare-client/src/App.tsx linguist-detectable=false
 
 wshare.Server/wwwroot/** linguist-generated=true
 

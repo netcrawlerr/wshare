@@ -46,6 +46,8 @@ app.MapPost("/api/upload", async (HttpContext context) =>
     }
 
     var reader = new MultipartReader(boundary, context.Request.Body);
+
+    // directory setup
     var downloadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wshare-downloads");
 
     if (!Directory.Exists(downloadDirectory))
@@ -133,7 +135,7 @@ app.Lifetime.ApplicationStarted.Register(() =>
     }
 
     Console.ForegroundColor = ConsoleColor.DarkGray;
-    Console.WriteLine("  >> http://localhost:5050 (Local Dev Mode Only)");
+    Console.WriteLine("  >> http://localhost:5050 (local Dev Mode Only)");
     Console.ResetColor();
     Console.WriteLine("\n======================================================================\n");
 });
