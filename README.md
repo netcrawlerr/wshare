@@ -10,20 +10,21 @@ A lightweight local network file transfer tool built with **.NET** that enables 
 
 One device runs the server, and others connect using the displayed LAN address. Transfers are streamed over HTTP and written directly to disk in real time.
 
+The server also exposes files stored inside the `wshare-downloads/` directory, allowing connected devices to browse and download files directly from the web interface.
+
 ---
 
 ## 💡 Inspiration
 
-This project was built out of a real limitation
+This project was built out of a real limitation.
 
-I was brought a laptop where **USB access was restricted and software installation required admin privileges**, so I couldn’t use traditional file transfer tools. To solve this, I built `wshare` to move files over a local network using only a browser.
+I was brought a laptop where **USB access was restricted and software installation required admin privileges**, so traditional file transfer tools were not an option. To solve this, I built `wshare` to move files over a local network using only a browser.
 
 ---
 
-
-> 💡 **Note:**  
-> This project currently supports **one-way transfer only (client → server)**.  
-> There is no download UI yet for sending files back from the server device to other devices.
+> 💡 **Note:**
+> Uploaded files are stored inside the `wshare-downloads/` directory.
+> Files located there are automatically exposed through the download tab and can be downloaded by other devices connected to the same network.
 
 ---
 
@@ -57,8 +58,6 @@ wshare/
 
 ### 🚀 Primary (Development Mode)
 
-This is the recommended way to run the project:
-
 ```bash
 cd wshare-client
 npm install
@@ -68,14 +67,13 @@ cd ../wshare.Server
 dotnet run
 ```
 
-The server will print LAN access URLs automatically.  
-Open one from another device on the same Wi-Fi network.
+The server prints LAN access URLs automatically.
+
+Open one from another device connected to the same Wi-Fi network.
 
 ---
 
 ### 📦 Alternative (Published Build)
-
-After publishing the server:
 
 #### Linux
 
@@ -95,19 +93,20 @@ wshare.Server.exe
 
 ## ⚙️ How it works
 
-- Starts a .NET HTTP server on port `5050`
-- Detects and prints active LAN IPs
-- Serves React UI from `wwwroot`
-- Accepts streamed multipart uploads
-- Writes files directly to disk (no full buffering)
-
+* Starts a .NET HTTP server on port `5050`
+* Detects and prints active LAN IPs
+* Serves React UI from `wwwroot`
+* Accepts streamed multipart uploads
+* Writes files directly to disk (no full buffering)
+* Preserves folder structure during upload
+* Exposes downloadable files from `wshare-downloads/`
 
 ---
 
 ## 🧱 Stack
 
-- .NET
-- React
+* .NET
+* React
 
 ---
 
