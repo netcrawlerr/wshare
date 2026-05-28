@@ -30,6 +30,44 @@ app.UseCors();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
+var downloadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wshare-downloads");
+if (!Directory.Exists(downloadDirectory))
+{
+    Directory.CreateDirectory(downloadDirectory);
+}
+
+// List all files in wshare-downloads directory
+app.MapGet("/api/files", () =>
+{
+    if (!Directory.Exists(downloadDirectory)) return Results.Ok(Array.Empty<object>());
+
+    var files = Directory.GetFiles(downloadDirectory, "*.*", SearchOption.AllDirectories)
+        .Select(filePath =>
+        {
+            var fileInfo = new FileInfo(filePath);
+            var relativePath = Path.GetRelativePath(downloadDirectory, filePath).Replace("\\", "/");
+            return new
+            {
+                name = fileInfo.Name,
+                size = FormatBytes(fileInfo.Length),
+                path = relativePath
+            };
+        });
+
+    return Results.Ok(files);
+});
+
+// download z specific file
+app.MapGet("/api/download", (string path) =>
+{
+    var safePath = Path.GetFullPath(Path.Combine(downloadDirectory, path));
+    if (!safePath.StartsWith(downloadDirectory, StringComparison.OrdinalIgnoreCase) || !File.Exists(safePath))
+    {
+        return Results.NotFound("SYS_ERR: FILE_NOT_FOUND");
+    }
+
+    return Results.File(safePath, "application/octet-stream", Path.GetFileName(safePath));
+});
 
 app.MapPost("/api/upload", async (HttpContext context) =>
 {
@@ -38,7 +76,6 @@ app.MapPost("/api/upload", async (HttpContext context) =>
         return Results.BadRequest("SYS_ERR: INVALID_TRANSMISSION_PAYLOAD_TYPE");
     }
 
-    // Capture the custom multi-segment boundary string passed down from the browser
     var boundary = context.Request.GetMultipartBoundary();
     if (string.IsNullOrEmpty(boundary))
     {
@@ -46,14 +83,6 @@ app.MapPost("/api/upload", async (HttpContext context) =>
     }
 
     var reader = new MultipartReader(boundary, context.Request.Body);
-
-    // directory setup
-    var downloadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wshare-downloads");
-
-    if (!Directory.Exists(downloadDirectory))
-    {
-        Directory.CreateDirectory(downloadDirectory);
-    }
 
     int filesProcessed = 0;
     MultipartSection? section;
@@ -96,7 +125,7 @@ app.MapPost("/api/upload", async (HttpContext context) =>
         : Results.BadRequest("SYS_ERR: EMPTY_PAYLOAD");
 });
 
-// 5. Diagnostics Terminal Display Layer on Application Boot up
+// diagnostics Terminal Display (thanks to GPT)
 app.Lifetime.ApplicationStarted.Register(() =>
 {
     Console.Clear();
@@ -141,3 +170,16 @@ app.Lifetime.ApplicationStarted.Register(() =>
 });
 
 app.Run();
+
+static string FormatBytes(long bytes)
+{
+    string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
+    int index = 0;
+    double number = bytes;
+    while (number >= 1024 && index < suffixes.Length - 1)
+    {
+        number /= 1024;
+        index++;
+    }
+    return $"{number:0.#} {suffixes[index]}";
+}
