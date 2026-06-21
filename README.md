@@ -10,7 +10,7 @@ A lightweight local network file transfer tool built with **.NET** that enables 
 
 One device runs the server, and others connect using the displayed LAN address. Transfers are streamed over HTTP and written directly to disk in real time.
 
-The server also exposes files stored inside the `wshare-downloads/` directory, allowing connected devices to browse and download files directly from the web interface.
+The server also exposes files stored inside the `downloads/` directory, allowing connected devices to browse and download files directly from the web interface.
 
 ---
 
@@ -23,7 +23,7 @@ I was brought a laptop where **USB access was restricted and software installati
 ---
 
 > 💡 **Note:**
-> Uploaded files are stored inside the `wshare-downloads/` directory.
+> Uploaded files are stored inside the `downloads/` directory.
 > Files located there are automatically exposed through the download tab and can be downloaded by other devices connected to the same network.
 
 ---
@@ -99,7 +99,7 @@ wshare.Server.exe
 * Accepts streamed multipart uploads
 * Writes files directly to disk (no full buffering)
 * Preserves folder structure during upload
-* Exposes downloadable files from `wshare-downloads/`
+* Exposes downloadable files from `downloads/`
 
 ---
 

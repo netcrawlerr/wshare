@@ -1,4 +1,4 @@
-# build artifacts 
+# build artifacts
 [Dd]ebug/
 [Rr]elease/
 x64/
@@ -23,7 +23,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# wshare App specific runtime folders 
+# wshare App specific runtime folders
 wshare.Server/wwwroot/*
 !wshare.Server/wwwroot/.gitkeep
-wshare.Server/wshare-downloads/
+wshare.Server/downloads/

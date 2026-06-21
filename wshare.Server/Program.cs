@@ -30,7 +30,7 @@ app.UseCors();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-var downloadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wshare-downloads");
+var downloadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "downloads");
 if (!Directory.Exists(downloadDirectory))
 {
     Directory.CreateDirectory(downloadDirectory);

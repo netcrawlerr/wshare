@@ -10,4 +10,9 @@
       <Folder Include="wwwroot\" />
     </ItemGroup>
 
+    <Target Name="CreateDownloadDirectory" BeforeTargets="Build">
+      <Message Importance="high" Text="Ensuring 'downloads' directory exists..." />
+      <MakeDir Directories="$(ProjectDir)downloads" />
+    </Target>
+
 </Project>
